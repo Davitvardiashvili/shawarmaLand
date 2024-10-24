@@ -1,0 +1,103 @@
+/* Ensure the page has a white background and fixed height */
+.public-page {
+    background-color: white;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+  }
+  
+  /* Container holding both sections side by side */
+  .orders-container {
+    display: flex;
+    width: 100%;
+    align-items: stretch; /* Changed to stretch to fill height */
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+  }
+  
+  /* Each section styling */
+  .orders-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100%; /* Ensure it fills the parent's height */
+  }
+  
+  /* Vertical line separator */
+  .orders-container::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    height: 100%;
+    width: 1px;
+    background-color: black;
+    transform: translateX(-50%);
+  }
+  
+  /* Background colors for headers */
+  .section-header.preparing {
+    background-color: red;
+    flex-shrink: 0; /* Prevent header from shrinking */
+  }
+  
+  .section-header.ready {
+    background-color: green;
+    flex-shrink: 0;
+  }
+  
+  /* Style headers */
+  .section-header h2 {
+    text-align: center;
+    margin: 0;
+    padding: 10px 0;
+    color: white;
+  }
+  
+  /* Orders content */
+  .orders-content {
+    padding: 20px;
+    flex: 1;
+    overflow: hidden; /* Hide overflow to prevent scrolling */
+    display: block; /* Ensure block-level for column layout */
+  }
+  
+  /* Multi-column layout for order numbers */
+  .orders-content ul {
+    column-count: 3; /* Maximum of 3 columns */
+    column-gap: 20px;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    column-fill: auto; /* Fill columns sequentially */
+  }
+  
+  .orders-section li {
+    break-inside: avoid;
+    text-align: center;
+    margin: 10px 0;
+    font-weight: bold;
+    font-size: 5vh;
+  }
+  
+  /* Style list items in the "Preparing" section */
+  .section-header.preparing + .orders-content li {
+    color: red;
+  }
+  
+  /* Style list items in the "Ready" section */
+  .section-header.ready + .orders-content li {
+    color: green;
+  }
+  
+
+  .section-header {
+    flex-shrink: 0;
+  }
+

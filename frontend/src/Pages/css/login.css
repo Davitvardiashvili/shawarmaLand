@@ -1,0 +1,140 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+/* Reset and base styles */
+* {
+    box-sizing: border-box;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+    background-color: #121212; /* Dark background */
+    color: #e0e0e0; /* Light text for contrast */
+}
+
+.loginBody {
+    height: 100vh;
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Logo Container */
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.login-logo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; /* Makes the image circular */
+    object-fit: cover;
+    border: 2px solid #fff; /* Optional border */
+    box-shadow: 0 0 10px rgba(0,0,0,0.5); /* Optional shadow */
+}
+
+.login-container {
+    background: #1e1e1e; /* Dark container background */
+    padding: 30px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    text-align: center;
+    max-width: 350px;
+    width: 90%;
+}
+
+.login-title {
+    margin-bottom: 25px;
+    font-size: 26px;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input-group {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background: #2c2c2c;
+    color: #e0e0e0;
+    outline: none;
+    transition: background 0.3s ease;
+}
+
+.input-group input:focus {
+    background: #3a3a3a;
+}
+
+.input-group label {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #777;
+    pointer-events: none;
+    transition: all 0.2s ease;
+}
+
+.input-group input:focus ~ label,
+.input-group input:not(:placeholder-shown) ~ label {
+    top: -10px;
+    font-size: 12px;
+    color: #9e9e9e;
+}
+
+.login-button {
+    width: 100%;
+    padding: 12px;
+    background: #3a3a3a;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 15px;
+}
+
+.login-button:hover {
+    background: #505050;
+}
+
+@media (max-width: 480px) {
+    .login-container {
+        padding: 20px 15px;
+    }
+
+    .login-title {
+        font-size: 22px;
+    }
+
+    .input-group input {
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+
+    .login-button {
+        font-size: 14px;
+    }
+}
