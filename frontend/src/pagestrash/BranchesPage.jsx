@@ -27,7 +27,7 @@ const BranchesPage = () => {
         },
       })
       .then((response) => {
-        setBranches(response.data);
+        setBranches(response.data.results);
       })
       .catch((error) => {
         console.error('Error fetching data:', error);

@@ -8,9 +8,10 @@ import Footer from './components/Footer';
 import NavBar from './components/Navbar';
 import BranchesPage from './pagestrash/BranchesPage';
 import CategoriesPage from './pagestrash/CategoriesPage';
-import UsersPage from './pagestrash/UsersPage';
 import ProductsPage from './pagestrash/ProductsPage';
 import PublicPage from './pagestrash/PublicPage';
+import UsersListPage from './pagestrash/UsersListPage';
+import UserCreatePage from './pagestrash/UserCreatePage';
 
 function App() {
   const location = useLocation();
@@ -25,7 +26,8 @@ function App() {
           <Route path="/branches" element={<BranchesPage />} />
           <Route path="/categories" element={<CategoriesPage />} />
           <Route path="/products" element={<ProductsPage />} />
-          <Route path="/users" element={<UsersPage />} />
+          <Route exact path="/users" element={<UsersListPage />} />
+          <Route path="/users/create" element={< UserCreatePage />} />
         </Route>
         <Route path="/login" element={<LogIn />} />
         <Route path="/" element={<PublicPage />} />
