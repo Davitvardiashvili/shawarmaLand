@@ -1,5 +1,5 @@
 # views.py
-from rest_framework import generics, permissions, status
+from rest_framework import generics, permissions, status, serializers
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
 from rest_framework.response import Response
 from django.contrib.auth import authenticate
@@ -11,6 +11,11 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework.authentication import TokenAuthentication
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
+
+class TokenSerializer(serializers.Serializer):
+    token = serializers.CharField()
+    is_admin = serializers.BooleanField()
+    is_staff = serializers.BooleanField()
 
 class ObtainAuthTokenView(APIView):
     throttle_classes = ()
@@ -38,7 +43,11 @@ class ObtainAuthTokenView(APIView):
         user = authenticate(request, username=username, password=password)
         if user:
             token, created = Token.objects.get_or_create(user=user)
-            return Response({'token': token.key})
+            return Response({
+                'token': token.key,
+                'is_admin': user.is_superuser,
+                'is_staff': user.is_staff
+            })
         else:
             return Response({"error": "Wrong Credentials"}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -59,6 +68,27 @@ class LogoutView(APIView):
         request.user.auth_token.delete()
         return Response({"message": "Successfully logged out"}, status=status.HTTP_200_OK)
 
+
+
+class UserListView(generics.ListAPIView):
+    """
+    View to list all users in the system.
+    Only accessible to admin users.
+    """
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAdminUser]
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
+    search_fields = ['username', 'first_name', 'last_name']
+    ordering_fields = ['username', 'id']
+    ordering = ['id']
+
+    @swagger_auto_schema(
+        operation_description="Retrieve a list of all users. Admin access required.",
+        responses={200: UserSerializer(many=True)}
+    )
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
 
 class ChangePasswordView(generics.GenericAPIView):
     serializer_class = ChangePasswordSerializer

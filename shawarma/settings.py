@@ -25,14 +25,19 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5173',  # Vite's default port
+    'http://localhost:3000',  # If using create-react-app
 ]
 
 ROOT_URLCONF = 'shawarma.urls'
@@ -55,7 +60,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'shawarma.wsgi.application'
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -66,7 +70,6 @@ DATABASES = {
         'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -83,19 +86,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-
-
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
     ],
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 30,
 
 }
-
-
 
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
@@ -108,31 +107,7 @@ SWAGGER_SETTINGS = {
     },
 }
 
-
-
 CORS_ALLOW_ALL_ORIGINS = True
-
-
-CORS_ALLOW_METHODS = [
-    'DELETE',
-    'GET',
-    'OPTIONS',
-    'PATCH',
-    'POST',
-    'PUT',
-]
-
-CORS_ALLOW_HEADERS = [
-    'accept',
-    'accept-encoding',
-    'authorization',
-    'content-type',
-    'dnt',
-    'origin',
-    'user-agent',
-    'x-csrftoken',
-    'x-requested-with',
-]
 
 AUTH_USER_MODEL = 'wiwaka.User'
 
@@ -144,9 +119,9 @@ USE_I18N = True
 
 USE_TZ = True
 
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 STATIC_URL = 'static/'
-
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

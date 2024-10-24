@@ -29,8 +29,11 @@ class ProductSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'password', 'branch', 'avatar', 'first_name', 'last_name', 'is_superuser']
-        extra_kwargs = {'password': {'write_only': True}}
+        fields = ['id', 'username', 'branch', 'avatar', 'first_name', 'last_name', 'is_superuser', 'password']
+        extra_kwargs = {
+            'password': {'write_only': True},
+            'is_superuser': {'read_only': True},  # Make is_superuser read-only
+        }
 
     def create(self, validated_data):
         user = User(**validated_data)

@@ -72,7 +72,7 @@ class Order(models.Model):
     order_number = models.IntegerField()
     total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     order_details = models.JSONField(default=dict)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Preparing')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='preparing')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
